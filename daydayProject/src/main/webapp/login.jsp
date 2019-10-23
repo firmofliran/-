@@ -26,19 +26,27 @@
 
         //3.验证输入的验证码 是否正确
         $("#btn").click(function () {
+            var username = $('#username').val();
             var vcode = $("#vcode").val();
             if (vcode == "") {
                 $("#msgCode").html("<span style='color: red'>请填写验证码</span>");
                 return;
             }
             var re = /^[a-z0-9][\w\.\-]*@[a-z0-9\-]+(\.[a-z]{2,5}){1,2}$/;
+            var rememberStr="";
+            if( $("#remember").prop("checked")){
+                rememberStr='yes';
+            }else{
+                rememberStr='no';
+            }
             var formData = "";
-            var username = $('#username').val();
             if (re.test(username)) {
-                formData = "usernameOrEmail="+username+ "&password="+ $("#password").val()+"&vcode="+ $("#vcode").val()
+                formData = "usernameOrEmail="+username+ "&password="+ $("#password").val()
+                    +"&vcode="+ $("#vcode").val()+"&remember="+rememberStr
 
             } else {
-                formData = "usernameOrEmail="+username+ "&password="+ $("#password").val()+"&vcode="+ $("#vcode").val()
+                formData = "usernameOrEmail="+username+ "&password="+ $("#password").val()
+                    +"&vcode="+ $("#vcode").val()+"&remember="+rememberStr
             }
 
 
@@ -94,7 +102,7 @@
                         <span id="msgCode"></span>
                     </div>
                     <div class="more_input clearfix">
-                        <input type="checkbox" name="">
+                        <input type="checkbox" id="remember">
 
                         <label>记住用户名</label>
                         <a href="#">忘记密码</a>

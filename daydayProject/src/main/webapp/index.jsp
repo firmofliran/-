@@ -6,46 +6,18 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <title>天天生鲜-首页</title>
-    <link rel="stylesheet" type="text/css" href="css/reset.css">
-    <link rel="stylesheet" type="text/css" href="css/main.css">
-    <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
-    <script type="text/javascript" src="js/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="js/slide.js"></script>
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/main.css">
+    <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/js/slide.js"></script>
 </head>
 <body>
-<div class="header_con">
-    <div class="header">
-        <div class="welcome fl">欢迎来到天天生鲜!</div>
-        <div class="fr">
-            <div class="login_info fl">
-
-                欢迎您：<em><shiro:user>
-                <shiro:principal/>
-            </shiro:user></em>
-            </div>
-            <div class="login_btn fl">
-                <shiro:guest>
-                    <a href="<%=request.getContextPath()%>/login.jsp">登录</a>
-                    <span>|</span>
-                    <a href="<%=request.getContextPath()%>/register.jsp">注册</a>
-                </shiro:guest>
-            </div>
-            <div class="user_link fl">
-                <span>|</span>
-                <a href="user_center_info.html">用户中心</a>
-                <span>|</span>
-                <a href="cart.html">我的购物车</a>
-                <span>|</span>
-                <a href="user_center_order.html">我的订单</a>
-            </div>
-        </div>
-    </div>
-</div>
+<%@include file="head.jsp"%>
 
 <div class="search_bar clearfix">
     <a href="index.html" class="logo fl"><img src="images/logo.png"></a>
@@ -73,14 +45,9 @@
 </div>
 
 <div class="center_con clearfix">
-    <ul class="subnav fl">
-        <li><a href="#model01" class="fruit">新鲜水果</a></li>
-        <li><a href="#model02" class="seafood">海鲜水产</a></li>
-        <li><a href="#model03" class="meet">猪牛羊肉</a></li>
-        <li><a href="#model04" class="egg">禽类蛋品</a></li>
-        <li><a href="#model05" class="vegetables">新鲜蔬菜</a></li>
-        <li><a href="#model06" class="ice">速冻食品</a></li>
-    </ul>
+    <div id="category">
+    </div>
+
     <div class="slide fl">
         <ul class="slide_pics">
             <li><img src="images/slide.jpg" alt="幻灯片"></li>
@@ -98,43 +65,32 @@
     </div>
 </div>
 
-<div class="list_model">
-    <div class="list_title clearfix">
-        <h3 class="fl" id="model01">新鲜水果</h3>
-        <div class="subtitle fl">
-            <span>|</span>
-            <a href="#">鲜芒</a>
-            <a href="#">加州提子</a>
-            <a href="#">亚马逊牛油果</a>
-        </div>
-        <a href="list.html" class="goods_more fr" id="fruit_more">查看更多 ></a>
-    </div>
+<div class="list_model" id="categoryGoods">
 
-    <div class="goods_con clearfix">
-        <div class="goods_banner fl"><img src="images/banner01.jpg"></div>
-        <ul class="goods_list fl">
-            <li>
-                <h4><a href="#">草莓</a></h4>
-                <a href="detail.html"><img src="images/goods/goods003.jpg"></a>
-                <div class="prize">¥ 30.00</div>
-            </li>
-            <li>
-                <h4><a href="#">葡萄</a></h4>
-                <a href="detail.html"><img src="images/goods/goods002.jpg"></a>
-                <div class="prize">¥ 5.50</div>
-            </li>
-            <li>
-                <h4><a href="#">柠檬</a></h4>
-                <a href="detail.html"><img src="images/goods/goods001.jpg"></a>
-                <div class="prize">¥ 3.90</div>
-            </li>
-            <li>
-                <h4><a href="#">奇异果</a></h4>
-                <a href="detail.html"><img src="images/goods/goods012.jpg"></a>
-                <div class="prize">¥ 25.80</div>
-            </li>
-        </ul>
-    </div>
+
+           <%-- <div class="goods_banner fl"><img src="images/banner01.jpg"></div>
+            <ul class="goods_list fl">
+                <li>
+                    <h4><a href="#">草莓</a></h4>
+                    <a href="detail.html"><img src="images/goods/goods003.jpg"></a>
+                    <div class="prize">¥ 30.00</div>
+                </li>
+                <li>
+                    <h4><a href="#">葡萄</a></h4>
+                    <a href="detail.html"><img src="images/goods/goods002.jpg"></a>
+                    <div class="prize">¥ 5.50</div>
+                </li>
+                <li>
+                    <h4><a href="#">柠檬</a></h4>
+                    <a href="detail.html"><img src="images/goods/goods001.jpg"></a>
+                    <div class="prize">¥ 3.90</div>
+                </li>
+                <li>
+                    <h4><a href="#">奇异果</a></h4>
+                    <a href="detail.html"><img src="images/goods/goods012.jpg"></a>
+                    <div class="prize">¥ 25.80</div>
+                </li>
+            </ul>--%>
 </div>
 
 <div class="list_model">
@@ -345,6 +301,10 @@
     <p>电话：010-****888 京ICP备*******8号</p>
 </div>
 <script type="text/javascript" src="js/slideshow.js"></script>
+<script>
+    $("#category").load("${pageContext.request.contextPath}/goods/queryCategory");
+    $("#categoryGoods").load("${pageContext.request.contextPath}/goods/queryGoodsByCategoryId/1");
+</script>
 <script type="text/javascript">
     BCSlideshow('focuspic');
     var oFruit = document.getElementById('fruit_more');

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.qf.mapper.GoodsMapper">
+    <select id="queryAllCategory" resultMap="getCategory">
+
+        select * from tb_category order by id limit 0,5
+    </select>
+
+
+    <resultMap id="getCategory" type="Category">
+        <id property="id" column="id"></id>
+        <result property="title" column="title"></result>
+        <result property="bannerPath" column="bannerPath"></result>
+        <result property="className" column="className"></result>
+        <result property="createTime" column="create_time"></result>
+
+    </resultMap>
+
+    <select id="queryGoodsByIdCategory" resultMap="getGoods">
+
+      SELECT
+      tc.id categoryId,tc.bannerPath,tc.title categoryName,
+      tg.id goodsId,tg.title goodsTitle,tg.imgPath,tg.price
+       FROM tb_category tc
+        INNER JOIN tb_goods tg
+        ON tc.id=tg.categoryid
+        WHERE tc.id=#{id}
+        ORDER BY  tg.create_time ASC LIMIT 0,7
+    </select>
+    <resultMap id="getGoods" type="Goods">
+        <id property="id" column="goodsId"/>
+        <result property="title" column="goodsTitle"/>
+        <result property="imgPath" column="imgPath"/>
+        <result property="categoryId" column="categoryId"/>
+        <result property="categoryName" column="categoryName"/>
+        <result property="bannerPath" column="bannerPath"/>
+        <result property="price" column="price"/>
+    </resultMap>
+
+    <select id="queryGoodsDetail" resultType="Detail">
+        select * from tb_goods_detail where goodsid=#{id}
+    </select>
+</mapper>

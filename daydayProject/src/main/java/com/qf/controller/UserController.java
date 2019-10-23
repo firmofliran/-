@@ -63,7 +63,7 @@ public class UserController {
     }
 
     @RequestMapping("login")
-    public R login(HttpServletRequest request, String usernameOrEmail, String password, String vcode) {
+    public R login(HttpServletRequest request, String usernameOrEmail, String password, String vcode,String remember) {
         if (StringUtils.isEmpty(usernameOrEmail) || StringUtils.isEmpty(password)) {
             return R.error("账号或者密码不能为空");
         }
@@ -72,7 +72,9 @@ public class UserController {
             return R.error("codeError");
         }
         UsernamePasswordToken token = new UsernamePasswordToken(usernameOrEmail, password);
-        token.setRememberMe(true);
+        if(!StringUtils.isEmpty(remember)&&remember.equals("yes")){
+            token.setRememberMe(true);
+        }
         Subject subject = SecurityUtils.getSubject();
         try {
             subject.login(token);

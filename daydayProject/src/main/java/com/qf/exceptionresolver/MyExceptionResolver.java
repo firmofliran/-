@@ -1,4 +1,4 @@
-package com.qf.ExceptionResolver;
+package com.qf.exceptionresolver;
 
 import com.alibaba.fastjson.JSON;
 import com.qf.utils.R;
