@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--将SecurityManager交由Spring管理-->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <!--挂载自定义的realm-->
+        <property name="realm" ref="myRealm"/>
+        <property name="rememberMeManager" ref="rememberMeManager"/>
+    </bean>
+    <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+        <property name="cookie" ref="simpleCookie"/>
+    </bean>
+
+    <!--注册自定义的realm-->
+    <bean id="myRealm" class="com.qf.realms.MyRealm">
+        <!--注入加密匹配器，在登录时会自动调用-->
+        <property name="credentialsMatcher" ref="credentialsMatcher"/>
+        <property name="userService" ref="userServiceImpl"/>
+    </bean>
+
+    <!--定义加密匹配器，在登录时会被调用-->
+    <bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+        <property name="hashAlgorithmName" value="sha-256"/>
+        <property name="hashSalted" value="true"/>
+        <property name="hashIterations" value="10000"/>
+        <property name="storedCredentialsHexEncoded" value="false"/>
+    </bean>
+
+    <!--ShiroFilterFactoryBean是个工厂bean会创建以前的shirofilter并交由容器管理-->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"/>
+        <!--<property name="loginUrl" value="/user/login/page"/>
+        <property name="unauthorizedUrl" value="/user/author/error"/>-->
+       <!-- <property name="filterChainDefinitions">
+            <value>
+                /user/login/page = anon
+                /user/login/logic = anon
+                /user/query = authc,perms["query"]
+                /user/update = authc,roles["管理员","seller"]
+                /user/logout = logout
+            </value>
+        </property>-->
+    </bean>
+
+
+    <!--关于session管理-->
+ <!--   <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+                <property name="globalSessionTimeout" value="10000"/>
+                <property name="sessionValidationInterval" value="15000"/>
+        <property name="sessionIdCookie" ref="simpleCookie"/>
+    </bean>-->
+
+    <bean id="simpleCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <property name="httpOnly" value="true"/>
+        <property name="maxAge" value="604800"/><!--秒-->
+        <property name="name" value="RememberMe1"/>
+    </bean>
+</beans>
