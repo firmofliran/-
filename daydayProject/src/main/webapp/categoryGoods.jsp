@@ -17,7 +17,7 @@
         <%--<a href="#">加州提子</a>
         <a href="#">亚马逊牛油果</a>--%>
     </div>
-    <a href="list.html" class="goods_more fr" id="fruit_more">查看更多 ></a>
+    <a href="${pageContext.request.contextPath}/goods/queryAllById/${categoryGoodsList[0].categoryId}" class="goods_more fr" id="fruit_more">查看更多 ></a>
 </div>
 <div class="goods_con clearfix">
     <div class="goods_banner fl"><img src="<%=request.getContextPath()%>/images/${bannerPath}"></div>

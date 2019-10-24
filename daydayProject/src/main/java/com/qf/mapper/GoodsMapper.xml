@@ -24,13 +24,34 @@
 
       SELECT
       tc.id categoryId,tc.bannerPath,tc.title categoryName,
-      tg.id goodsId,tg.title goodsTitle,tg.imgPath,tg.price
+      tg.title goodsTitle,tg.imgPath,
+      tgd.id goodsId,tgd.price
        FROM tb_category tc
         INNER JOIN tb_goods tg
         ON tc.id=tg.categoryid
+        inner join tb_goods_detail tgd
+        on tg.id=tgd.goodsid
         WHERE tc.id=#{id}
         ORDER BY  tg.create_time ASC LIMIT 0,7
     </select>
+
+    <select id="queryAllGoodsByCategoryId" resultType="Detail">
+        select tg.categoryid,
+        tgd.id,tgd.maintitle,tgd.price,tgd.imgpath
+        from tb_goods tg
+        inner join tb_goods_detail tgd
+        on tg.id=tgd.goodsid where tg.categoryid=#{id}
+        order by
+        <choose>
+            <when test="isPriceSort!=null and isPriceSort!=''">
+                price
+            </when>
+            <otherwise>
+                create_time
+            </otherwise>
+        </choose>
+    </select>er
+
     <resultMap id="getGoods" type="Goods">
         <id property="id" column="goodsId"/>
         <result property="title" column="goodsTitle"/>
@@ -42,6 +63,6 @@
     </resultMap>
 
     <select id="queryGoodsDetail" resultType="Detail">
-        select * from tb_goods_detail where goodsid=#{id}
+        select * from tb_goods_detail where id=#{id}
     </select>
 </mapper>

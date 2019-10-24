@@ -13,4 +13,6 @@ public interface GoodsService {
 
     Detail queryGoodsDetail(Integer id);
 
+    List<Detail> queryAllGoodsByCategoryId(Integer id,int currentPage,int pageSize,String isPriceSort);
+
 }

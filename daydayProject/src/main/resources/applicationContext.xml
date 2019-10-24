@@ -39,31 +39,48 @@
         <!--开启别名-->
         <property name="typeAliasesPackage" value="com.qf.pojo"/>
 
-        <!-- mapper文件 如果和dao接口在同包且同名，则如下注入可以省略 -->
-        <!--<property name="mapperLocations" value="classpath:com/qf/dao/*.xml"/>-->
-    </bean>
+        <property name="plugins">
+            <array>
+                <bean class="com.github.pagehelper.PageInterceptor">
+                    <!--<property name="properties">
+                        <props>
+                            <prop key="reasonable">true</prop>
+                        </props>
+                    </property>-->
+                    <property name="properties">
+                        <value>
+                        reasonable=true
+                        </value>
+                    </property>
+                </bean>
+            </array>
+        </property>
+    <!-- mapper文件 如果和dao接口在同包且同名，则如下注入可以省略 -->
+    <!--<property name="mapperLocations" value="classpath:com/qf/dao/*.xml"/>-->
+</bean>
 
 
-    <!--扫描我们的mapper，为我们的mapper动态代理生成对应的实现类-->
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <!--注入工厂,如果只有一个工厂则可以省略不写-->
-        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
-        <!--mapper接口所在的位置-->
-        <property name="basePackage" value="com.qf.mapper"/>
-    </bean>
+        <!--扫描我们的mapper，为我们的mapper动态代理生成对应的实现类-->
+<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 
-    <!--事务管理-->
-    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="druidDataSource"></property>
-    </bean>
+<!--注入工厂,如果只有一个工厂则可以省略不写-->
+<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+<!--mapper接口所在的位置-->
+<property name="basePackage" value="com.qf.mapper"/>
+</bean>
+
+        <!--事务管理-->
+<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+<property name="dataSource" ref="druidDataSource"></property>
+</bean>
 
 
-    <!--用来支持@service @Component等注解的-->
-    <context:component-scan base-package="com.qf">
-        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-    </context:component-scan>
+        <!--用来支持@service @Component等注解的-->
+<context:component-scan base-package="com.qf">
+<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+</context:component-scan>
 
-    <!--就是用来支持@transaction()注解的，开启后你就可以不用在配置文件中配置一些bean了-->
-    <tx:annotation-driven transaction-manager="transactionManager"/>
-    <import resource="shiroSpring.xml"/>
-</beans>
+        <!--就是用来支持@transaction()注解的，开启后你就可以不用在配置文件中配置一些bean了-->
+<tx:annotation-driven transaction-manager="transactionManager"/>
+<import resource="shiroSpring.xml"/>
+        </beans>

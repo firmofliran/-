@@ -16,4 +16,5 @@ public class Detail {
     private String product;
     private Integer goodsId;
     private String imgPath;
+    private Integer categoryId;
 }

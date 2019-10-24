@@ -56,7 +56,7 @@
 </div>
 
 <div class="goods_detail_con clearfix">
-    <div class="goods_detail_pic fl"><img src="<%=request.getContextPath()%>/images/${detail.imgPath}"></div>
+    <div class="goods_detail_pic fl"><img src="<%=request.getContextPath()%>/images/goods/${detail.imgPath}"></div>
 
     <div class="goods_detail_list fr">
         <h3>${detail.mainTitle}</h3>
@@ -116,19 +116,7 @@
     </div>
 </div>
 
-<div class="footer">
-    <div class="foot_link">
-        <a href="#">关于我们</a>
-        <span>|</span>
-        <a href="#">联系我们</a>
-        <span>|</span>
-        <a href="#">招聘人才</a>
-        <span>|</span>
-        <a href="#">友情链接</a>
-    </div>
-    <p>CopyRight © 2016 北京天天生鲜信息技术有限公司 All Rights Reserved</p>
-    <p>电话：010-****888 京ICP备*******8号</p>
-</div>
+<%@include file="foot.jsp"%>
 <div class="add_jump"></div>
 
 <script type="text/javascript">
