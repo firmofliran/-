@@ -50,7 +50,7 @@
                 create_time
             </otherwise>
         </choose>
-    </select>er
+    </select>
 
     <resultMap id="getGoods" type="Goods">
         <id property="id" column="goodsId"/>
