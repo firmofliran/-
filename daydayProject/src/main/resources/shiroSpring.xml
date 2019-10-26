@@ -32,8 +32,8 @@
     <!--ShiroFilterFactoryBean是个工厂bean会创建以前的shirofilter并交由容器管理-->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"/>
-        <!--<property name="loginUrl" value="/user/login/page"/>
-        <property name="unauthorizedUrl" value="/user/author/error"/>-->
+        <property name="loginUrl" value="/user/login/page"/>
+        <property name="unauthorizedUrl" value="/user/author/error"/>
        <!-- <property name="filterChainDefinitions">
             <value>
                 /user/login/page = anon

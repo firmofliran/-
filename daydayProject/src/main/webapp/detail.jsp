@@ -15,21 +15,11 @@
     <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.12.4.min.js"></script>
 </head>
 <body>
-<%@include file="head.jsp"%>
+<%@include file="head.jsp" %>
 
-<div class="search_bar clearfix">
-    <a href="index.html" class="logo fl"><img src="<%=request.getContextPath()%>/images/logo.png"></a>
-    <div class="search_con fl">
-        <input type="text" class="input_text fl" name="" placeholder="搜索商品">
-        <input type="button" class="input_btn fr" name="" value="搜索">
-    </div>
-    <div class="guest_cart fr">
-        <a href="cart.html" class="cart_name fl">我的购物车</a>
-        <div class="goods_count fl" id="show_count">1</div>
-    </div>
-</div>
+<%@include file="serachHead.jsp" %>
 
-<div class="navbar_con">
+<%--<div class="navbar_con">
     <div class="navbar clearfix">
         <div class="subnav_con fl">
             <h1>全部商品分类</h1>
@@ -45,7 +35,7 @@
             <li><a href="">抽奖</a></li>
         </ul>
     </div>
-</div>
+</div>--%>
 
 <div class="breadcrumb">
     <a href="#">全部分类</a>
@@ -116,11 +106,12 @@
     </div>
 </div>
 
-<%@include file="foot.jsp"%>
+<%@include file="foot.jsp" %>
 <div class="add_jump"></div>
 
 <script type="text/javascript">
     $("#category").load("${pageContext.request.contextPath}/goods/queryCategory");
+
 
     var $add_x = $('#add_cart').offset().top;
     var $add_y = $('#add_cart').offset().left;
@@ -129,18 +120,47 @@
     var $to_y = $('#show_count').offset().left;
 
     $(".add_jump").css({'left': $add_y + 80, 'top': $add_x + 10, 'display': 'block'})
+    var isAdd = false;
     $('#add_cart').click(function () {
-        $(".add_jump").stop().animate({
-                'left': $to_y + 7,
-                'top': $to_x + 7
-            },
-            "fast", function () {
-                $(".add_jump").fadeOut('fast', function () {
-                    $('#show_count').html(2);
-                });
+        var num = $(".num_show").val();
+        $.post("${pageContext.request.contextPath}/order/addCart", {
+            detailId:${detail.id},
+            num: num
+        }, function (data) {
+            if (data.code == 0) {
+                if (!isAdd) {
+                    isAdd = true;
+                    var count = parseInt($('#show_count').text()) + 1;
+                    $(".add_jump").stop().animate({
+                            'left': $to_y + 7,
+                            'top': $to_x + 7
+                        },
+                        "fast", function () {
+                            $(".add_jump").fadeOut('fast', function () {
+                                $('#show_count').html(count);
+                            });
 
-            });
+                        });
+                }
+            }else if(data.code==1&&data.msg==='login'){
+                if(confirm("是否去登录页面")){
+                    location.href="${pageContext.request.contextPath}/login.jsp";
+                }
+            }
+        })
+        //     $(".add_jump").stop().animate({
+        //             'left': $to_y + 7,
+        //             'top': $to_x + 7
+        //         },
+        //         "fast", function () {
+        //             $(".add_jump").fadeOut('fast', function () {
+        //                 $('#show_count').html(2);
+        //             });
+        //
+        //         });
+        // })
     })
+
 </script>
 
 </body>

@@ -20,17 +20,7 @@
 <div id="header">
 
 </div>
-<div class="search_bar clearfix">
-    <a href="index.html" class="logo fl"><img src="<%=request.getContextPath()%>/images/logo.png"></a>
-    <div class="search_con fl">
-        <input type="text" class="input_text fl" name="" placeholder="搜索商品">
-        <input type="button" class="input_btn fr" name="" value="搜索">
-    </div>
-    <div class="guest_cart fr">
-        <a href="#" class="cart_name fl">我的购物车</a>
-        <div class="goods_count fl">1</div>
-    </div>
-</div>
+<%@include file="serachHead.jsp"%>
 
 <div class="navbar_con">
     <div class="navbar clearfix">
@@ -169,7 +159,7 @@
                         var data = pageInfo.list;
                         for (var d in data) {
                             htmlData += ' <li> ' +
-                                '<a href="detail.html">' +
+                                '<a href="${pageContext.request.contextPath}/goods/queryGoodsDetail/'+data[d].id +'">' +
                                 '<img src="<%=request.getContextPath()%>/images/goods/' + data[d].imgPath + '">' +
                                 '</a> <h4><a href="${pageContext.request.contextPath}/goods/queryGoodsDetail/' + data[d].id + '">' + data[d].mainTitle + '</a></h4>' +
                                 '<div class="operate"><span class="prize">' + toMoney(data[d].price) + '</span>' +
@@ -190,7 +180,7 @@
         <ul class="goods_type_list clearfix" id="show">
             <c:forEach items="${detailPageInfo.list}" var="d">
                 <li>
-                    <a href="detail.html"><img src="<%=request.getContextPath()%>/images/goods/${d.imgPath}"></a>
+                    <a href="${pageContext.request.contextPath}/goods/queryGoodsDetail/${d.id}"><img src="<%=request.getContextPath()%>/images/goods/${d.imgPath}"></a>
                     <h4><a href="${pageContext.request.contextPath}/goods/queryGoodsDetail/${d.id}">${d.mainTitle}</a>
                     </h4>
                     <div class="operate">
@@ -345,19 +335,7 @@
     </div>
 </div>
 
-<div class="footer">
-    <div class="foot_link">
-        <a href="#">关于我们</a>
-        <span>|</span>
-        <a href="#">联系我们</a>
-        <span>|</span>
-        <a href="#">招聘人才</a>
-        <span>|</span>
-        <a href="#">友情链接</a>
-    </div>
-    <p>CopyRight © 2016 北京天天生鲜信息技术有限公司 All Rights Reserved</p>
-    <p>电话：010-****888 京ICP备*******8号</p>
-</div>
+<%@include file="foot.jsp"%>
 
 </body>
 </html>

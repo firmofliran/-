@@ -24,7 +24,7 @@
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
-
+    <bean class="com.qf.exceptionresolver.MyExceptionResolver"/>
     <!--创建视图解析器-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/"/>

@@ -7,7 +7,7 @@
 --%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
          pageEncoding="utf-8" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 
 <head>
@@ -64,13 +64,13 @@
                         $("#msgCode").html("<span style='color: red'>ERROR</span>").show();
                         $("#pagecode").attr("src", "${pageContext.request.contextPath}/user/createCode?" + Math.random());
                     } else {
-                        $("#user_error").html("账号或者密码错误").show();
+                        $(".user_error").html("账号或者密码错误").show();
                     }
+                    $("#changeCode").attr("src", "${pageContext.request.contextPath}/user/createCode?" + Math.random());
                 }
             })
         })
     })
-
 </script>
 <body>
 <div class="login_top clearfix">
@@ -85,7 +85,7 @@
         <div class="login_form fr">
             <div class="login_title clearfix">
                 <h1>用户登录</h1>
-                <a href="register.html">立即注册</a>
+                <a href="${pageContext.request.contextPath}/register.jsp">立即注册</a>
             </div>
             <div class="form_input">
                 <form action="${pageContext.request.contextPath}/user/register">
@@ -116,7 +116,7 @@
 </div>
 
 
-<%@include file="foot.jsp"%>
-
+<%--<%@include file="foot.jsp"%>--%>
+<jsp:include page="foot.jsp"/>
 </body>
 </html>

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Asus
@@ -9,19 +10,13 @@
 <html>
 <head>
     <title>天天生鲜-购物车</title>
-    <link rel="stylesheet" type="text/css" href="css/reset.css">
-    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/main.css">
+    <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.12.4.min.js"></script>
 </head>
 <body>
-<%@include file="head.jsp"%>
-<div class="search_bar clearfix">
-    <a href="index.html" class="logo fl"><img src="images/logo.png"></a>
-    <div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;购物车</div>
-    <div class="search_con fr">
-        <input type="text" class="input_text fl" name="" placeholder="搜索商品">
-        <input type="button" class="input_btn fr" name="" value="搜索">
-    </div>
-</div>
+<%@include file="head.jsp" %>
+<%@include file="serachHead.jsp" %>
 
 <div class="total_count">全部商品<em>2</em>件</div>
 <ul class="cart_list_th clearfix">
@@ -32,27 +27,28 @@
     <li class="col05">小计</li>
     <li class="col06">操作</li>
 </ul>
-<ul class="cart_list_td clearfix">
+<c:forEach items="${cartGoodsList}" var="g">
+    <ul class="cart_list_td clearfix">
+        <li class="col01"><input type="checkbox" name="" checked></li>
+        <li class="col02"><img src="<%=request.getContextPath()%>/images/goods/${g.imgPath}"></li>
+        <li class="col03">${g.mainTitle}<br><em>${g.price}元/500g</em></li>
+        <li class="col04">500g</li>
+        <li class="col05">${g.price}元</li>
+        <li class="col06">
+            <div class="num_add">
+                <a href="javascript:;" class="add fl">+</a>
+                <input type="text" class="num_show fl" value="1">
+                <a href="javascript:;" class="minus fl">-</a>
+            </div>
+        </li>
+        <li class="col07">${g.price}元</li>
+        <li class="col08"><a href="javascript:;">删除</a></li>
+    </ul>
+</c:forEach>
+<%--<ul class="cart_list_td clearfix">
     <li class="col01"><input type="checkbox" name="" checked></li>
-    <li class="col02"><img src="images/goods/goods012.jpg"></li>
-    <li class="col03">奇异果<br><em>25.80元/500g</em></li>
-    <li class="col04">500g</li>
-    <li class="col05">25.80元</li>
-    <li class="col06">
-        <div class="num_add">
-            <a href="javascript:;" class="add fl">+</a>
-            <input type="text" class="num_show fl" value="1">
-            <a href="javascript:;" class="minus fl">-</a>
-        </div>
-    </li>
-    <li class="col07">25.80元</li>
-    <li class="col08"><a href="javascript:;">删除</a></li>
-</ul>
-
-<ul class="cart_list_td clearfix">
-    <li class="col01"><input type="checkbox" name="" checked></li>
-    <li class="col02"><img src="images/goods/goods003.jpg"></li>
-    <li class="col03">大兴大棚草莓<br><em>16.80元/500g</em></li>
+    <li class="col02"><img src="<%=request.getContextPath()%>/images/goods/${}"></li>
+    <li class="col03">${}<br><em>16.80元/500g</em></li>
     <li class="col04">500g</li>
     <li class="col05">16.80元</li>
     <li class="col06">
@@ -64,7 +60,7 @@
     </li>
     <li class="col07">16.80元</li>
     <li class="col08"><a href="javascript:;">删除</a></li>
-</ul>
+</ul>--%>
 
 
 <ul class="settlements">
@@ -74,7 +70,7 @@
     <li class="col04"><a href="place_order.html">去结算</a></li>
 </ul>
 
-<%@include file="foot.jsp"%>
+<%@include file="foot.jsp" %>
 
 </body>
 </html>

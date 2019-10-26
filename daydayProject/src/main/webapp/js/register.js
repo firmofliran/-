@@ -88,14 +88,16 @@ $(function () {
 
     function check_email() {
         var re = /^[a-z0-9][\w\.\-]*@[a-z0-9\-]+(\.[a-z]{2,5}){1,2}$/;
-
+        $('#email').next().html("");
         if (re.test($('#email').val())) {
             $('#email').next().hide();
             $.get("user/queryHasEmail", {email: $('#email').val()}, function (data) {
                 var data = JSON.parse(data);
+
                 if (data.msg == 'yes') {
                     error_email = true;
-                    $('#email').next().html('邮箱已被利用')
+
+                    $('#email').next().html('邮箱已被利用').show();
                 } else {
                     $('#email').next().hide();
                     error_email = false;
@@ -119,6 +121,7 @@ $(function () {
             $('.error_tip2').html('请勾选同意').show();
             return;
         }
+        $("#submitButton").next().remove();
         if (error_name == false && error_password == false && error_check_password == false && error_email == false && error_check == false) {
             var username = $("#user_name").val();
             var password = $("#pwd").val();
